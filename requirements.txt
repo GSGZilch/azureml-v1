@@ -1,0 +1,5 @@
+azureml-core
+azureml-pipeline
+azureml-dataprep[pandas]
+
+scikit-learn

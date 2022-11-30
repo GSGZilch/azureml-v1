@@ -1,0 +1,67 @@
+{
+    "SOURCE_DIR_PREFIX": "pipelines/train_pipeline",
+
+    "WORKSPACE_AUTH": "from_config",
+    
+    "ENV_NAME": "cur_env",
+
+    "EXPERIMENT_NAME": "test-experiment",
+    
+    "CURATED_ENV": "AzureML-sklearn-1.0-ubuntu20.04-py38-cpu",
+    
+    "CPU_CLUSTERS": {
+        "cpu-cluster001": {
+            "min": 1,
+            "max": 1
+        }
+    },
+
+    "GPU_CLUSTERS": {},
+
+    "PIPELINE_NAME": "test-pipeline",
+    "PIPELINE_DESCRIPTION": "demo training pipeline for random forest model.",
+
+    "PIPELINE_STEPS": [
+        {
+            "NAME": "clean",
+            "SCRIPT": "clean.py",
+            "SOURCE_DIR": "001_clean",
+            "RUN_WITH_PREVIOUS": false,
+            "COMPUTE": "cpu-cluster001",
+            "PARAMS": {
+                "cleaned_output_path": "ml/cleaned/"
+            },
+            "INPUT_DATASETS": {
+                "ds-titanic-raw": "titanic_input_dataset"
+            }
+        },
+        {
+            "NAME": "preprocess",
+            "SCRIPT": "preprocess.py",
+            "SOURCE_DIR": "002_preprocess",
+            "RUN_WITH_PREVIOUS": false,
+            "COMPUTE": "cpu-cluster001",
+            "PARAMS": {
+                "preprocessed_output_path": "ml/preprocessed/"
+            },
+            "INPUT_DATASETS": {
+                "ds-titanic-cleaned": "titanic_input_dataset"
+            }
+        },
+        {
+            "NAME": "train",
+            "SCRIPT": "train.py",
+            "SOURCE_DIR": "003_train",
+            "RUN_WITH_PREVIOUS": false,
+            "COMPUTE": "cpu-cluster001",
+            "PARAMS": {},
+            "INPUT_DATASETS": {
+                "ds-titanic-preprocessed": "titanic_input_dataset"
+            }
+        }
+    ],
+    "DEPLOY_PIPELINE_ENDPOINT": false,
+    "RUN_INSTANTLY": true, 
+    "ENDPOINT_NAME": "demo-pipeline-endpoint", 
+    "ENDPOINT_DESCRIPTION": "demo endpoint for random forest training pipeline"
+}
