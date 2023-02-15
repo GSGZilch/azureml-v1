@@ -1,6 +1,6 @@
-# EMEA CSA Bootcamp - Azure Machine Learning
+# Azure Machine Learning
 
-This repo covers all code used in the CSA Bootcamp session of December 2022 on Azure Machine Learning, using the v1 Python SDK.
+This repo covers Azure Machine Learning, using the v1 Python SDK.
 
 ## Usage
 
